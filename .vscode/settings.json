@@ -1,0 +1,15 @@
+{
+    "git.branchPrefix": "task/LOPS-",
+    "isort.args": ["--profile", "black"],
+    "isort.check": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "mypy-type-checker.preferDaemon": false,
+    "mypy-type-checker.importStrategy": "useBundled",
+    "flake8.importStrategy": "useBundled",
+    "black-formatter.importStrategy": "useBundled",
+    "isort.importStrategy": "useBundled",
+}
