@@ -15,6 +15,35 @@ black = "^24.10.0"
 isort = "^5.13.2"
 mypy = "^1.11.2"
 autoflake = "^2.3.1"
+pre-commit = "^4.0.1"
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+follow_imports = "skip"
+strict_optional = true
+
+[tool.black]
+line-length = 90
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = """
+    missing-function-docstring,
+    missing-module-docstring,
+    missing-class-docstring,
+    redefined-outer-name,
+    pointless-string-statement,
+    no-self-argument,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-branches,
+    invalid-name,
+    import-error
+"""
+extension-pkg-whitelist='pydantic'
 
 [build-system]
 requires = ["poetry-core"]
