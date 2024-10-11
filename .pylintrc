@@ -11,3 +11,5 @@ disable =
     too-many-branches,
     invalid-name,
     import-error,
+    global-variable-not-assigned,
+    global-statement,

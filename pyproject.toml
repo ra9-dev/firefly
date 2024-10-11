@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 loguru = "^0.7.2"
+beautifulsoup4 = "^4.12.3"
+aiohttp = "^3.10.10"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -42,7 +44,9 @@ disable = """
     too-many-arguments,
     too-many-branches,
     invalid-name,
-    import-error
+    import-error,
+    global-variable-not-assigned
+    global-statement
 """
 extension-pkg-whitelist='pydantic'
 
