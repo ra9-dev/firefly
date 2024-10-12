@@ -5,7 +5,12 @@ from aiohttp import ClientSession
 from bs4 import BeautifulSoup
 from loguru import logger
 
-from app.helper import LOCAL_DIR, _get_string_hash, clean_html_word
+from app.helper import (
+    LOCAL_DIR,
+    _get_string_hash,
+    check_if_file_locked,
+    clean_html_word,
+)
 from app.request import process_request
 from app.valid_words import ValidWords
 
@@ -16,12 +21,15 @@ class Article:
         self.url = url
         self.url_hash = _get_string_hash(to_hash_str=self.url)
         self.json_file_path = f"{LOCAL_DIR}/jsons/{self.url_hash}.json"
+        self.is_pre_existing_lock = check_if_file_locked(file_path=self.json_file_path)
         self.processed = False
         self.result: dict[str, int] = {}
 
     async def process(self):
         logger.debug(f"processing: {self.url_hash}")
-        if not os.path.isfile(self.json_file_path):
+        # if lock was pre existing, complete the process again
+        # Maybe the process was stuck in between back then
+        if not os.path.isfile(self.json_file_path) or self.is_pre_existing_lock:
             return await self.__process()
 
         article_word_count = None
