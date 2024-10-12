@@ -22,7 +22,7 @@ from app.helper import (
 )
 from app.valid_words import ValidWords
 
-DEBUG = True
+DEBUG = False
 
 PROCESSED_ARTICLE_OBJ: list[Article] = []
 UNPROCESSED_ARTICLES = 0
