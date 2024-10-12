@@ -4,7 +4,12 @@ from urllib.request import urlopen
 
 from loguru import logger
 
-from app.helper import LOCAL_DIR, WORDS_MASTERLIST_FILE_LINK, _time_my_method
+from app.helper import (
+    LOCAL_DIR,
+    WORDS_MASTERLIST_FILE_LINK,
+    _time_my_method,
+    read_list_from_txt_file,
+)
 
 LOCAL_FILE_PATH = f"{LOCAL_DIR}/valid_words.txt"
 
@@ -35,13 +40,7 @@ class ValidWords:
             logger.debug("no file found yet")
             return await cls.read_remote_file()
 
-        file_words = None
-        with open(LOCAL_FILE_PATH, encoding="utf-8") as f:
-            file_words = f.read().split("\n")
-            file_words = [
-                word for word in file_words if cls.__check_if_valid_word(word=word)
-            ]
-
+        file_words = read_list_from_txt_file(file_path=LOCAL_FILE_PATH)
         if file_words:
             cls.valid_words = file_words
             return cls.valid_words

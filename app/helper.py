@@ -1,4 +1,5 @@
 import hashlib
+import os
 import time
 
 from loguru import logger
@@ -40,3 +41,26 @@ def clean_html_word(word: str) -> str:
     # Remove leading/trailing quotes and commas
     word = word.strip("\",+.'_!@#$?^-")
     return word
+
+
+# TODO: can be later optimised to remove lock files,
+# if created more than 1 minute or so
+def check_if_file_locked(file_path: str) -> bool:
+    return bool(os.path.isfile(get_lock_file_path(file_path=file_path)))
+
+
+def get_lock_file_path(file_path: str) -> str:
+    return f"{file_path}.lock"
+
+
+def read_list_from_txt_file(file_path: str) -> list[str]:
+    if not os.path.isfile(file_path):
+        logger.debug(f"{file_path =} not found. Returning empty list")
+        return []
+
+    with open(file_path, encoding="utf-8") as f:
+        list_elems = f.read().split("\n")
+        # NOTE: to cater for empty last line
+        if not list_elems[-1]:
+            del list_elems[-1]
+        return list_elems
