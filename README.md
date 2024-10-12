@@ -37,3 +37,13 @@ The following softwares should be installed in the machine:
     ```
     *To run multiple instances of this script concurrently, execute the above command in different shell window*
 
+## Points to Note
+1. Execution of one instance of the script can take around ~1-2 minutes. So please don't exit.
+2. For now, keeping in mind the local development and execution, the batch processing has been set to 15 per batch.
+    - *You can keep running the script to fetch more articles.*
+
+### ToDos
+1. If lock file is existing from more than ~2 minutes, we can expire the lock.
+    
+    *This will be useful if someone kills the script in-between processing*
+2. Expose `BATCH_SIZE` as an environment variable so it can be customised as per requirements.
